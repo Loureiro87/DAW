@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista 2 Ejercicio 4</title>
+    <!-- Objeto String.- Solicitar una cadena de texto en un campo input, presentar el número de caracteres que
+contiene y presentar la propia cadena en itálica, en color rojo y en tachado. Aplicar el atributo
+style que corresponda.-->
+<script>
+    function Presentar(){
+        var cadena = document.getElementById("cadena").value;
+        var salida = "";
+        // Número de caracteres de la cadena
+        salida += "Número de caracteres de la cadena: "+cadena.length+"<br>";
+        salida += "La cadena en itálica sería: "+"<i>"+cadena+"</i>"+"<br>";
+        salida += "La cadena en rojo sería: "+"<span style='color:red'>"+cadena+"</span><br>";
+        //salida += "La cadena en tachado sería: "+"<del>"+cadena+"</del><br>";
+        salida += "La cadena en tachado sería: "+"<span style='text-decoration:line-through;'>"+cadena+"</span><br>";
+       
+        document.getElementById("salida").innerHTML = salida; 
+    }
+</script>
+</head>
+<body>
+    Inserte una cadena <input type="text" id="cadena">
+    <button onclick="Presentar()">Presentar información</button>
+    <div id="salida"></div>
+</body>
+</html>

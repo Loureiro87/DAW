@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montiel Musica</title>
+    <style>
+        table,
+        td,
+        tr {
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        var profesores = [];
+        var alumnos = [];
+        var falt = [];
+
+        // Dia de la semana 
+        var fecha = new Date();
+        var dia = ["D", "L", "M", "X", "J", "V", "S"];
+        var diaSemana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+
+
+        function Login() {
+            let profesor = document.getElementById("usuario").value;
+            let password = document.getElementById("password").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                profesores = JSON.parse(this.responseText);
+                if (profesores.length == 0) {
+                    alert("Usuario o password desconocido.");
+                } else {
+                    console.log(profesores[0].codigo, profesores);
+
+                    CargarAlumnos(profesores[0].codigo, profesores[0].nombre);
+                }
+            }
+            xhr.open('POST', 'login.php');
+            xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded");
+            xhr.send("usuario=" + profesor + "&password=" + password);
+        }
+        function CargarAlumnos(codigo, nombre) {
+
+            let ListaH1 = `<h1>Lista de Clase de los ${diaSemana[fecha.getDay()]} de ${nombre} </h1>`;
+            var listaAlumno = "";
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                alumnos = JSON.parse(this.responseText);
+
+                if (alumnos.length == 0) {
+                    document.getElementById("tablaAlum").innerHTML = `<span style="color:red"><h2>USTED NO TIENE CLASE HOY!!!</h2>`;
+                } else {
+                    var tabla = "<table>";
+                    tabla += "<tr><th>Nombre</th><th>Instrumento</th><th>Hora</th></tr>";
+                    let espacioBlanco = "";
+
+                    for (let i = 0; i < alumnos.length; i++) {
+
+                        console.log(alumnos[i].telefono);
+
+                        // tabla += `<tr onmouseout="ClearTd(this)" onmouseover="MostrarTelefono(this, ${alumnos[i].telefono})"><td>${alumnos[i].nombre}</td><td>${alumnos[i].instrumento}</td><td>${alumnos[i].hora}</td><td><button onclick="PonerFalta(this)">Poner falta</button></td></tr>`;
+                        if (alumnos[i].hora == espacioBlanco) {
+                            tabla += `<tr onmouseout="ClearTd(this)" onmouseover="MostrarTelefono(this, ${alumnos[i].telefono})"><td>${alumnos[i].nombre}</td><td>${alumnos[i].instrumento}</td><td>${alumnos[i].hora}</td><td><button onclick="PonerFalta(this)">Poner falta</button></td></tr>`;
+
+
+
+
+                        } else {
+                            tabla += `<tr onmouseout="ClearTd(this)" onmouseover="MostrarTelefono(this, ${alumnos[i].telefono})"><td>${alumnos[i].nombre}</td><td>${alumnos[i].instrumento}</td><td>${alumnos[i].hora}</td><td><button onclick="PonerFalta(this)">Poner falta</button></td></tr>`;
+                            tabla += `<tr>&nbsp;<td></td><td>&nbsp;</td><td></td><td></td></tr>`;
+                            espacioBlanco = alumnos[i].hora;
+                        }
+                        espacioBlanco = alumnos[i].hora;
+                    }
+                    tabla += "</table>";
+                    console.log(ListaH1 + listaAlumno);
+                    document.getElementById("tablaAlum").innerHTML = ListaH1 + tabla;
+                }
+
+
+
+            }
+            xhr.open("GET", 'lista.php?profesor=' + codigo + '&dia=' + dia[fecha.getDay()]);
+            xhr.send();
+        }
+
+        function MostrarTelefono(fila, telefono) {
+
+            fila.style.backgroundColor = 'blue';
+            document.getElementById("telefono").innerHTML = telefono;
+
+
+        }
+        function ClearTd(fila) {
+            fila.style.backgroundColor = 'white';
+        }
+
+        function PonerFalta() {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                falta = JSON.parse(this.responseText);
+
+                if (falta == 0) {
+                    alert("Erro, ya le pusistes la falta.");
+                } else {
+
+                }
+            }
+            xhr.open("POST", 'falta.php');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            xhr.send("alumno_id=" + alumno + "&fecha=" + fecha + "&hora=" + hora);
+
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Montiel Música S.L.</h1>
+
+    Usuario: <input type="text" id="usuario"><br>
+    Contraseña: <input type="password" id="password"><br>
+    <button onclick="Login()">Login</button>
+
+    <div id="tablaAlum"></div>
+    <span id="telefono"></span>
+</body>
+
+</html>

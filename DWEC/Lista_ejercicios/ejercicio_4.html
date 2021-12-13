@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 </title>
+
+    <script>
+      /*
+      4. Definir una función que muestre información sobre una cadena de texto que se le
+        pasa como argumento. A partir de la cadena que se le pasa, la función determina si
+        esa cadena está formada sólo por mayúsculas, sólo por minúsculas o por una
+        mezcla de ambas.
+      */
+          function UpperLower(){
+            
+            var miPalabra = document.getElementById("cadena").value; 
+
+         
+           if ( miPalabra == miPalabra.toUpperCase()){
+              console.log("La cadena es toda mayusculas");
+              document.getElementById("capa").innerHTML = `<p>La cadena ${miPalabra} es toda Mayuscula</p>`;
+
+               
+            }
+            else if(miPalabra == miPalabra.toLowerCase()){
+                document.getElementById("capa").innerHTML = `<p>La cadena ${miPalabra} es toda Minuscula</p>`;
+            }
+            else {
+              document.getElementById("capa").innerHTML = `<p>La cadena ${miPalabra} contiene mayusculas y minusculas</p>`;
+
+            }
+          }
+            
+       
+    </script>
+
+</head>
+<body>
+    <h1>Diferencia de Mayusculas y minisculas</h1>
+    Cadena <input type="text" id="cadena" min="1" max="50">
+    <button onclick="UpperLower()">Mostrar Respuesta</button>
+   
+    <div id="capa"></div>
+   
+</body>
+</html>

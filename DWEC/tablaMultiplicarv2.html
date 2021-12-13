@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción </title>
+
+    <script>
+          function MostrarTabla(){
+            var numero = document.getElementById("num").value;
+            var texto = " <br> " ;
+
+
+            for(let i=1 ; i<=10 ; i++ ){
+                //document.write(numero +" X " + i + " = "+ (numero*i)+"<br>");
+
+                texto += `${numero} X ${i} = ${numero*i} <br>`;
+                // document.getElementById("Tabla").innerHTML = `${numero} X ${i} = ${numero*i} <br>`;
+            }
+
+            document.getElementById("Tabla").innerHTML = texto;
+
+          }  
+           
+       
+    </script>
+
+</head>
+<body>
+    <h1>Tabla de multiplicar</h1>
+    Numero <input type="number" id="num" min="1" max="10" value="7">
+    <button onclick="MostrarTabla()">Mostrar Tabla</button>
+   
+    <div id="Tabla"></div>
+   
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>XXII Festival Flamenco de Jerez</title>
+<script>
+function nombreMes(numero){
+	var mes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+	return mes[numero];
+}
+
+function nombreDia(numero){
+	var dia = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+	return dia[numero];
+}
+
+function Listado(){
+	var x = new XMLHttpRequest();
+	x.onreadystatechange = function(){
+		if (this.readyState == 4 && this.status == 200){
+			var espectaculos = JSON.parse(this.responseText);
+			CargaTabla(espectaculos);
+			ControlaEventos(espectaculos);
+		}
+	}
+	x.open("GET","espectaculos.php",true);
+	x.send();
+}
+
+function CargaTabla(e){
+	var salida = "<tr><th>Fecha</th><th>Espectáculo</th><th>Artista</th><th>Votos</th><th></th></tr>";	
+	for (var i=0;i<e.length;i++){
+		var fecha = new Date(e[i].fecha);
+		fecha = nombreDia(fecha.getDay()) +', ' +
+				fecha.getDate() + ' de ' + 
+				nombreMes(fecha.getMonth()) + ' de ' +
+				fecha.getFullYear();
+		salida += "<tr id='"+i+"'><td>"+fecha+"</td><td>"+e[i].espectaculo+"</td><td>"+e[i].artista+"</td><td>"+e[i].votos+"</td><td><input type='button' value='Votar' onclick='Votar(this.id)' id='"+e[i].idespectaculo+"'></td></tr>";
+	}
+	document.getElementById("tabla").innerHTML=salida;
+}
+
+function ControlaEventos(e){
+	// Preparo los eventos sobre las filas de la tabla
+	var trs = document.getElementsByTagName("tr");
+	for (var i=1;i<trs.length;i++){
+		// Cuando el ratón está encima de la fila (mouseover)
+		trs[i].onmouseover = function(){
+			this.style.color = 'red';
+			// Presentar foto si no es nula
+			var cual = this.id;
+			document.getElementById("capa2").innerHTML = e[cual].foto?"<img src='fotos/"+e[cual].foto+"' />":"";
+		}
+		// Cuando el ratón está fuera de la fila (mouseout)
+		trs[i].onmouseout = function(){
+			this.style.color = 'black';	
+		}
+	}
+}
+
+function Votar(cual){
+	var x = new XMLHttpRequest();
+	x.onreadystatechange = function(){
+		if (this.readyState == 4 && this.status == 200){
+			if (this.responseText == "404"){
+				alert("Error en la computación del voto");
+			}else{
+				Listado();
+			}
+		}
+	}
+	x.open("POST","votar.php",true);
+	x.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	x.send("id="+cual);	
+}	
+
+
+window.onload = function(){
+	Listado();
+};
+</script>
+</head>
+
+<body>
+<h3>Espectáculos del XXI Festival Flamenco de Jerez</h3>
+<div style="float:left;">
+<table id="tabla" border="1">
+</table>
+</div>
+<div id="capa2" style="float:left;">
+</div>
+</body>
+</html>

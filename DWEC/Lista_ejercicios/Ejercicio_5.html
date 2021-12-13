@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5 </title>
+</head>
+<body>
+    <!-- 
+        5. Leer una cadena de texto mediante el método prompt() y generar un array con
+           las palabras que contiene. Posteriormente, mostrar la siguiente información:
+        * Número de palabras
+        * Primera palabra y última palabra
+        * Las palabras colocadas en orden inverso
+        * Las palabras ordenadas de la a la z
+        * Las palabras ordenadas de la z a la a
+       
+    -->
+    <p>
+        <label>El numero de palabras que tiene la cadena es :  </label>
+        <span id="numLetras" style="color: rgb(255, 0, 0);"></span>
+    </p>
+    <p>
+        <label>La primera palabra del array es:  </label>
+        <span id="first" style="color: rgb(255, 0, 0)wn;"></span>
+    </p>
+    <p>
+        <label>La ultima palabra del array es:  </label>
+        <span id="last" style="color: rgb(255, 0, 0);"></span>
+    </p>
+    <p>
+        <label>Las palabras colocadas en orden inverso son :  </label>
+        <span id="reverse" style="color: rgb(255, 0, 0);"></span>
+    </p>
+    <p>
+        <label>Las palabras ordenadas de la A a la Z:   </label>
+        <span id="orderAsc" style="color:rgb(255,0, 0);"></span>
+    </p>
+    <p>
+        <label>Las palabras ordenadas de la Z a la A:  </label>
+        <span id="orderDesc" style="color: rgb(255, 0, 0);"></span>
+    </p>    
+   
+    <script>
+        var cadena = prompt("Introduce la cadena para analizar");
+        var cadenaArray = cadena.split(" ");
+        //var cadenaArrayInversa = cadena.split(' ');
+       
+
+       //Numero de letras del string 
+        document.getElementById("numLetras").innerHTML = cadenaArray.length;
+        
+        //Primera y ultima palabra del array
+        document.getElementById("first").innerHTML =   cadenaArray[0];
+        //document.getElementById("last").innerHTML =   cadenaArray.pop();
+        document.getElementById("last").innerHTML =   cadenaArray[cadenaArray.length-1];
+
+        //orden inverso
+        document.getElementById("reverse").innerHTML = cadenaArray.reverse().join(" ");
+
+        //Las palabras ordenadas de la A a la Z
+        //reasiganamos la variable para tener cadena completa como al principio
+        //cadenaArray = cadena.split(' ');
+        document.getElementById("orderAsc").innerHTML = cadenaArray.sort().join(' ');
+
+        //Las palabras ordenadas de la Z a la A
+        document.getElementById("orderDesc").innerHTML = cadenaArray.sort().reverse().join(' ');
+        
+
+
+       
+    </script>
+
+</body>
+</html>

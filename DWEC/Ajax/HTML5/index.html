@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etiquetas Html 5</title>
+    <style>
+        button {
+            height: 30px;
+            width: 100px;
+        }
+    </style>
+    <script>
+        var etiquetaJson = []; // Array de etiquetas 
+        var etiquetasMostradas = [] // ALmacenamos los indices de las etiquetas que hemos mostrado para no repetir
+        var total = 0;
+        var acierto = 0;
+        var elegida;
+        window.onload = CargarAjax;
+        function CargarAjax() {
+            var xhr = new XMLHttpRequest();
+            var btnEtiquetas = "";
+            xhr.onreadystatechange = function () {
+                etiquetaJson = JSON.parse(this.responseText);
+
+                // ordena las etiquetas alfabeticamente
+                etiquetaJson.sort(function (a, b) {
+                    if (a.etiqueta < b.etiqueta) return -1;
+                    if (a.etiqueta > b.etiqueta) return 1;
+                    return 0;
+                });
+
+                etiquetaJson.forEach(function (etiquetas) {
+                    btnEtiquetas += `<button onclick="CargarDescripcion(etiquetas.etiqueta)" >${etiquetas.etiqueta}</button>`;
+                });
+                document.getElementById("etiquetas").innerHTML = btnEtiquetas;
+
+                etiqueta = CargarDescripcion();
+                //console.log("Etiqueta " + etiquetaJson[0].etiqueta + " Definicion: " + etiquetaJson[0].definicion);
+                // console.log(btnEtiquetas);
+
+            }
+            xhr.open("GET", "etiquetas_html5.json");
+            xhr.send();
+
+        }
+        function CargarDescripcion() {
+            var numRandom;
+            do {
+                numRandom = Math.floor(Math.random() * etiquetaJson.length);
+            } while (etiquetasMostradas.indexOf(numRandom) != -1);
+            etiquetasMostradas.push(numRandom);
+            document.getElementById("descripcion").innerHTML = etiquetaJson[numRandom].definicion;
+            return etiquetaJson[numRandom].etiqueta;
+        }
+        function Aciertos(boton) {
+            total++;
+
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Repasando HTML 5</h1>
+    <div id="etiquetas">
+    </div>
+    <p id="descripcion"></p>
+    <div id="aciertos">
+
+    </div>
+</body>
+
+</html>

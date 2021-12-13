@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./style/style.css" />
+    <title>Juego Ahorcado</title>
+    <script src="diccionario.js"></script>
+    <script>
+
+        var palabraAleatoria = Math.floor(Math.random() * diccionario.length);
+        const palabra = diccionario[palabraAleatoria].toLowerCase();
+        var palabraArray = [];
+        const letras = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "n", "m", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+        var letra_Escondida = "";
+        var imagen = 1;
+
+        window.onload = function () {
+            /*// crear los botones 
+            for (let i = 0; i < letras.length; i++) {
+
+                if (i < 13) {
+                    botones1 += `<td><button onclick="${Comprobar(this)}" value="${letras[i]}" id="${letras[i]}" >${letras[i].toUpperCase()}</button></td>`;
+                }
+                else {
+                    botones2 += `<td><button onclick=${Comprobar(this)} value="${letras[i]}" id="${letras[i]}" >${letras[i].toUpperCase()}</button></td>`;
+                }
+            }
+            document.getElementById("botoncitos").innerHTML = botones1;
+            */
+            console.log(palabra);
+            for (let i = 0; i < palabra.length; i++) {
+
+                letra_Escondida += '-';
+                palabraArray[i] = "-"
+            }
+            document.getElementById("PalabraOculta").innerHTML += letra_Escondida;
+            // document.getElementById('PalabraOculta').innerHTML = palabra.replace(/./g, '-');
+        }
+
+        // Mostramos la palabra pero sustituiremos las letras por guiones  para asi simular la palabra "oculta"
+
+        function Comprobar(letra) {
+            var error = true;
+            document.getElementById(letra.value).disabled = true;
+            document.getElementById(letra.value).style = "opacity: 0.5";
+
+            for (let i = 0; i <= palabra.length; i++) {
+                if (letra.value == palabra[i]) {
+                    //arrayAciertos.set(i, palabraArray[i]);
+                    palabraArray[i] = letra.value;
+                    error = false;
+                }
+            }
+
+            if (palabra == palabraArray.join("")) {
+
+                document.getElementById("PalabraOculta").innerHTML = palabra;
+                document.getElementById("win").innerHTML = `<p class='winner'>Enhorabuena has GANADO!! La palabra es <strong> ${palabra}</strong> </p>`;
+                document.getElementById("recargar").innerHTML = `<button id='recarga' onclick="recargar()" value="Volver a jugar"class="btnReload">Volver a jugar</button>`;
+
+                //deshabilito los botones menos el de recargar
+                deshabilitarBtn();
+
+
+            }
+            else {
+                document.getElementById("PalabraOculta").innerHTML = palabraArray.join("");
+            }
+
+            //usamos la bandera error para comprobar si la letra pulsada es correcta o no,
+            // cambiamos la imagen e incrementamos imagen para el siguiente error.
+            if (error == true) {
+                document.getElementById("imagen").src = "./img/ahorcado_" + imagen + ".png";
+                imagen += 1;
+            }
+
+            // Si imagen llega a 7 habremos perdido y nos aparecera un mensaje comunicandonoslo y un boton por si queremos volver a jugar.
+            if (imagen == 7) {
+                document.getElementById("PalabraOculta").innerHTML = palabra;
+                document.getElementById("win").innerHTML = `<p class='winner'>Lo siento pero PERDISTE!! 
+                    La palabra era  <strong> ${palabra}</strong> </p>`;
+                document.getElementById("recargar").innerHTML = `<button id='recarga' onclick="recargar()" value="Volver a jugar"class="btnReload">Volver a jugar</button>`;
+                //deshabilito los botones menos el de recargar    
+                deshabilitarBtn();
+
+            }
+
+            console.log(letra.value);
+
+            /*
+            if (arrayAciertos == '') {
+                if ((new RegExp(letra.value)).test(palabra)) {
+                    arrayAciertos = palabra.replace(new RegExp('[^' + letra.value + ']', 'gi'), '-');;
+                }
+            } else {
+                if ((new RegExp(letra.value)).test(palabra)) {
+                    arrayAciertos += palabra.replace(new RegExp('[^' + letra.value + ']', 'gi'), '-');;
+                }
+            }
+            document.getElementById("PalabraOculta").innerHTML = arrayAciertos
+            */
+
+        }
+        // Funcion para recargar la pagina y volver a jugar
+        function recargar() {
+            window.location.reload();
+        }
+
+        function deshabilitarBtn() {
+            for (let x = 0; x < letras.length; x++) {
+                document.getElementById(letras[x]).disabled = true;
+                document.getElementById(letras[x]).style = "opacity: 0.5";
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>Bienvenido al Juego del Ahorcado</h1>
+
+    <div class="tablero">
+        <img id="imagen" src="./img/ahorcado_0.png">
+        <h3 id="PalabraOculta"> </h3>
+
+        <table id="botoncitos"></table>
+
+
+
+        <table id="botones">
+            <tr>
+                <td><button id="a" onclick="Comprobar(this)" value="a" class="btn">A</button></td>
+                <td><button id="b" onclick="Comprobar(this)" value="b" class="btn">B</button></td>
+                <td><button id="c" onclick="Comprobar(this)" value="c" class="btn">C</button></td>
+                <td><button id="d" onclick="Comprobar(this)" value="d" class="btn">D</button></td>
+                <td><button id="e" onclick="Comprobar(this)" value="e" class="btn">E</button></td>
+                <td><button id="f" onclick="Comprobar(this)" value="f" class="btn">F</button></td>
+                <td><button id="g" onclick="Comprobar(this)" value="g" class="btn">G</button></td>
+                <td><button id="h" onclick="Comprobar(this)" value="h" class="btn">H</button></td>
+                <td><button id="i" onclick="Comprobar(this)" value="i" class="btn">I</button></td>
+                <td><button id="j" onclick="Comprobar(this)" value="j" class="btn">J</button></td>
+                <td><button id="k" onclick="Comprobar(this)" value="k" class="btn">K</button></td>
+                <td><button id="l" onclick="Comprobar(this)" value="l" class="btn">L</button></td>
+                <td><button id="m" onclick="Comprobar(this)" value="m" class="btn">M</button></td>
+            </tr>
+            <tr>
+                <td><button id="n" onclick="Comprobar(this)" value="n" class="btn">N</button></td>
+                <td><button id="ñ" onclick="Comprobar(this)" value="ñ" class="btn">Ñ</button></td>
+                <td><button id="o" onclick="Comprobar(this)" value="o" class="btn">O</button></td>
+                <td><button id="p" onclick="Comprobar(this)" value="p" class="btn">P</button></td>
+                <td><button id="q" onclick="Comprobar(this)" value="q" class="btn">Q</button></td>
+                <td><button id="r" onclick="Comprobar(this)" value="r" class="btn">R</button></td>
+                <td><button id="s" onclick="Comprobar(this)" value="s" class="btn">S</button></td>
+                <td><button id="t" onclick="Comprobar(this)" value="t" class="btn">T</button></td>
+                <td><button id="u" onclick="Comprobar(this)" value="u" class="btn">U</button></td>
+                <td><button id="v" onclick="Comprobar(this)" value="v" class="btn">V</button></td>
+                <td><button id="w" onclick="Comprobar(this)" value="w" class="btn">W</button></td>
+                <td><button id="x" onclick="Comprobar(this)" value="x" class="btn">X</button></td>
+                <td><button id="y" onclick="Comprobar(this)" value="y" class="btn">Y</button></td>
+                <td><button id="z" onclick="Comprobar(this)" value="z" class="btn">Z</button></td>
+            </tr>
+        </table>
+        <div id="win"></div>
+        <div id="recargar"></div>
+    </div>
+</body>
+
+</html>

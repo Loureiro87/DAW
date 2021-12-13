@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer Ejercicio Formulario</title>
+
+    <style>
+        .error{
+            font-size: small;
+            color: red;
+        }
+    </style>
+    <script>
+        var numero1 = Math.floor(Math.random()*10);
+        var numero2 = Math.floor(Math.random()*10);
+
+         // Limpiar formulario de Span 
+        function LimpiarSpansError(){
+                    let spancito = document.getElementsByClassName("error");
+                    for(let i =0 ; i<spancito.length; i++){
+                        spancito[i].innerHTML = ""
+                    }
+            }
+        function validar(formulario){
+            var valido = true;
+            //var regEdx_email = new RegExp("/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i");
+            var regEdx_nombre = /\S/;
+            var regEdx_email = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+            var regEdx_pass = /([A-Z]{8,})\d+/;
+            var email = formulario.email.value;
+          
+            //valido el campo Name, no puede estar vacio 
+            if(!regEdx_nombre.test(formulario.nombre.value)){
+                document.getElementById("errorName").innerHTML = "El Campo Nombre no puede estar vacio. ";
+                formulario.nombre.focus();
+                formulario.nombre.select();
+                return false;
+            }
+
+            //valido el campo email, formato correrto  
+            if(regEdx_email.test(email) == false ){
+                document.getElementById("errorEmail").innerHTML = "El campo Email tiene que ser formato exaple@gmail.com";
+                formulario.email.focus();
+                formulario.email.select();
+              
+                return false;
+            }
+
+            // Una contraseña (de al menos 8 caracteres y que cuente al menos con un dígito).
+            if(!regEdx_nombre.test(formulario.password.value)){
+                document.getElementById("errorPasword").innerHTML = "El campo contraseña no puede estar vacio";
+                    formulario.password.focus();
+                    formulario.password.select(); 
+                    return false; 
+                
+            }
+            else if(!regEdx_pass.test(formulario.password.value)){
+
+                    document.getElementById("errorPasword").innerHTML = "La contraseña tiene que ser de al menos 8 caracters y un digito";
+                    formulario.password.focus();
+                    formulario.password.select();
+
+
+                    return false;
+                
+                
+            }
+            // La contraseña tiene que coincidir con el campo password.
+            if(regEdx_pass.test(formulario.password.value)){
+                document.getElementById("errorPassword_confirmado").innerHTML = "La contraseña tiene que ser de al menos 8 caracters y un digito";
+                formulario.password.focus();
+                formulario.password.select();
+            }
+
+            return true;
+        }
+
+
+    </script>
+</head>
+<body>
+    <h1>Formulario</h1>
+    <form action="recibeDatos.php" method="GET" onsubmit="return validar(this)">
+       <p>
+            Nombre <input type="text"  placeholder="introduzca texto" name="nombre" >
+            <span id="errorName" clase="error"></span>
+            <br>
+        </p>
+        </p>
+            Email <input type="email"  placeholder="exaple@gmail.com" name="email" >
+            <span id="errorEmail" clase="error"></span>
+            <br>
+        </p>      
+        <p>
+            Contraseña <input type="password"  placeholder="introduzca texto" name="password" >
+            <span id="errorPassword" clase="error"></span>
+            <br>
+        </p>
+        <!--
+        <p>
+        Confirmar Contraseña<input type="password"  placeholder="introduzca texto" name="password_confirmado" required>
+        <span id="errorPassword_confirmado" clase="error"></span>
+        <br>
+        </p>
+
+
+        Resuelva la siguiente Suma <br>
+        <span id=numero1></span> +  <span id=numero2></span>
+        <input type="checkbox" id="condiciones" name="acpt_condiciones">
+        <label for="condiciones1"> Acepto las condiciones </label><br>
+-->
+
+        <input type="submit" value="Crear cuenta">
+    </form>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comprobar palíndromos</title>
+    <!-- 9. Definir una función que determine si la cadena de texto que se le pasa como
+        parámetro es un palíndromo, es decir, si se lee de la misma forma desde la
+        izquierda y desde la derecha. Ejemplo de palíndromo complejo: "La ruta nos aporto
+        otro paso natural".-->
+
+    <script>
+      onload = function () {
+        document.getElementById("boton").onclick = Comprobar;
+      };
+
+      function Palindromo(cadena) {
+        // Paso a minúsculas
+        cadena = cadena.toLowerCase();
+        // Elimino caracteres especiales
+        cadena = cadena.replace(/[\s,;:\.!¡?¿[\]]/g, "");
+        // Convertir a array para aplicarle map
+        array = cadena.split("");
+        // Cambio vocales Tildadas por vocales simples
+        const tildes = { á: "a", é: "e", í: "i", ó: "o", ú: "u", ü: "u" };
+        array = array.map(function (letra) {
+          return tildes[letra] || letra;
+        });
+        // Compruebo si ya es un palindromo
+        return array.join("") == array.reverse().join("");
+      }
+      function Comprobar() {
+        document.getElementById("salida").innerHTML = Palindromo(
+          document.getElementById("frase").value
+        )
+          ? "SÍ"
+          : "NO";
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Comprobar palíndromo</h1>
+    Introduzca la frase
+    <input
+      type="text"
+      id="frase"
+      value="Dábale;:.!¿?¡[] arroz a la zorra, el abad"
+    />
+    <button id="boton">Comprobar palíndromo</button>
+    <p>La frase <span id="salida"></span> es palíndroma</p>
+  </body>
+</html>

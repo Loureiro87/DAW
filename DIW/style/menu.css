@@ -1,0 +1,38 @@
+nav{
+    position:relative;
+    background-color:#CC9;
+    color:#FFF;
+    width:98%;
+    height:13%;
+    margin: 0px auto;
+  }
+ul{
+    list-style: none;
+}
+#menu{
+  width:98%;
+  height:13%;
+
+}
+#menu li>a{
+    background-color: rgb(32, 20, 100);
+    color: white;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+    min-width: 100px;
+  }
+  #menu li>a:hover{
+    color: #000;
+    background-color: #eaeaea;
+  }
+  #menu>li{
+    float: left;
+    text-align:center
+  }
+  #menu>li>ul{
+    display: none;
+  }
+  #menu>li:hover>ul {
+    display:block;
+  }

@@ -1,0 +1,56 @@
+{
+  "animales": [
+    {
+      "id": 1,
+      "nombre": "Pitufa",
+      "especie": "gato",
+      "raza": "siames"
+    },
+    {
+      "nombre": "fryda",
+      "especie": "pez",
+      "raza": "pez payaso",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "nombre": "Catalina",
+      "especie": "Iguana",
+      "raza": "iguana Tropical"
+    },
+    {
+      "id": 4,
+      "nombre": "Jabugo",
+      "especie": "perro",
+      "raza": "bodeguero"
+    },
+    {
+      "nombre": "theodoro",
+      "especie": "perro",
+      "raza": "perro-agua",
+      "id": 5
+    },
+    {
+      "nombre": "saturnino",
+      "especie": "gato",
+      "raza": "egipcio",
+      "id": 6
+    },
+    {
+      "nombre": "qwerty",
+      "especie": "perro",
+      "raza": "chiguagua",
+      "id": 7
+    }
+  ],
+  "propietarios": [
+    {
+      "nombre": "Juana",
+      "nacionalidad": "española"
+    },
+    {
+      "nombre": "Federica",
+      "nacionalidad": "italiana"
+    }
+  ]
+}

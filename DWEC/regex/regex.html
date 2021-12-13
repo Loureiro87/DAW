@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RegEx</title>
+
+    <script>
+        function Comprobar(){
+            let er = document.getElementById("er").value;
+            let texto = document.getElementById("texto").value; 
+
+            er = new RegExp(er,"");
+        try{
+                if(er.test(texto)){
+                    alert("Si coincida");
+                }else{
+                    alert("No coincida");
+                }
+        }catch(e){
+            alert("La expresion regula no es correcta");
+        }
+        }    
+
+    </script>
+
+</head>
+<body>
+    <h1>Pruebas con expresiones Regulares</h1>
+
+    Expresion regular <input type="text" id="er"><br>
+    Texto a comprobar <input type="text" id="texto"><br>
+
+    <button onclick="Comprobar()">Comprobar</button>
+</body>
+</html>

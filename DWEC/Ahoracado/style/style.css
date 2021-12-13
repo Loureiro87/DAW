@@ -1,0 +1,37 @@
+*{
+    background-color: rgb(240, 232, 232);
+    font-family:  Roboto ,Verdana, Geneva, Tahoma, Ubuntu;
+}
+
+body, .main, footer {
+   
+	margin: 0px auto;
+	padding: auto;
+        
+	}
+
+img{
+    width: 300px;
+    height: 200px;
+    display: inline-block;
+}
+
+.btn{
+    width: 40px;
+    height: 25px;
+    background-color: rgb(255, 145, 0);
+    color: rgb(0, 0, 0);
+}
+.btnReload{
+    background-color: rgb(255, 145, 0);
+    color: rgb(0, 0, 0);
+}
+h3{
+    font-size: 30px;
+    display: inline-block;  
+}
+.winner{
+    font-size: 30px;
+    display: inline-block;
+    color:rgb(255, 0, 0)   
+}

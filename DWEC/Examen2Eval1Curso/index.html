@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo Examen Ajax </title>
+</head>
+
+<body>
+    <h1>Programación de TV del <span id="diaSemana"> 7 de Marzo de 2018</span></h1>
+    <div id="canales">
+
+    </div>
+
+
+
+    <script>
+        // Funcion que carga los canales (acceso al recurso canales.php)
+        var canales = [];
+
+        function CargarCanales() {
+            const xhr = XMLHttpRequest();
+
+            xhr.onload = function () {
+                canales = JSON.parse(this.responseText);
+                if (!canales == 200) {
+                    alert("Error al cargar los datos de canales!!!");
+                } else {
+                    canales = canales.data;
+                    PresentarCanales();
+                }
+
+
+            }
+            xhr.open('GET', 'canales.php');
+            xhr.send();
+        }
+        CargarCanales();
+
+        function PresentarCanales() {// Ya tengo los canales a nivel global
+            var salida = "";
+
+            canales.forEach(function (canal) {
+                salida += `<img src="${canal.url}" onclick="PresentaProgramas(${canal.id})" />`;
+            });
+            document.getElementById("canales").innerHTML = salida;
+
+        }
+
+        function PresentarProgramas() {
+            const xhr = new XMLHttpRequest();
+
+            xhr.onload = function () {
+                if (this.responseText == "error") {
+
+                } else {
+                    if (a.hora < b.hora) return -1;
+                    if (a.hora > b.hora) return 1;
+                }
+            }
+            xhr.open("POST", "programas.php");
+            xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded");
+            xhr.send("id=" + id + "&fecha");
+
+        }
+
+        //Presenta el dia de la semana de la fecha fija
+        var fecha = new Date("2018-03-07");
+        var diaSemana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+        document.getElementById("diaSemana").innerHTML = diaSemana[fecha.getDay()]
+    </script>
+</body>
+
+</html>

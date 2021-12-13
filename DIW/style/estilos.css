@@ -1,0 +1,70 @@
+/** {margin:0; padding:0; border:0;}*/
+ html, body {
+     width: auto;
+     height: 100%;
+     font-family:Verdana, Geneva, sans-serif;
+     font-weight:bold;
+     background-color:rgb(255, 255, 255);
+ }
+
+#contenedor{
+    /*background: #fba456;*/
+    margin-top: 20px;
+    overflow: hidden;
+}
+article{
+	background: white;
+	float: left;
+	min-height: 500px;
+	padding: 20px;
+	text-align: justify;
+	width: 70%;
+}
+
+
+.bloque-derecha{
+	background: white;
+	margin-top: -40px;
+	float: right;
+	width: 290px;
+}
+
+.bloque-derecha .titulo{
+	background: #1d1d1d;
+	color: white;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	width: 100%;
+}
+
+
+.bloque-derecha section{
+	background: url('../img/anuncio.jpg') no-repeat;
+	height: 250px;
+	width: 100%;
+}
+
+fieldset{
+    color: rgb(0, 0, 0);
+}
+
+#logo{
+    position:relative;
+    height: auto;
+    width: 5%;
+}
+footer{
+    position: relative; 
+    background-color:#AA7;
+    width:98%;
+    height:5%;
+    color:#FFF;
+    
+    bottom: 0;   
+}
+header,section,footer,aside,article,nav{
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+margin:1%;}

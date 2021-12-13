@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Pseudoclases</title>
+    <!-- Crear una pseudoclase llamada Instituto que permita crear objetos de este tipo. 
+        Se deben utilizar funciones constructoras y la propiedad prototype. 
+        Para instanciar la clase, se debe utilizar la referencia Instituto(codigo,nombre,grupos),
+        donde grupos es un array simple que contiene las pseudoclases de todos los grupos que 
+        tiene el instituto. Por cada grupo es necesario almacenar descripción y número de alumnos.
+Crear, además, los métodos necesarios para:
+- Conocer el código del instituto, devuelve la cadena (miInstituto.getCodigo())
+- Conocer el total de alumnos del centro, devuelve el total (miInstituto.totalAlumnos())
+- Añadir un grupo nuevo al Instituto (miInstituto.nuevoGrupo(nombre,numAlumnos))-->
+<script>
+    // Crear una función constructora de Grupo
+    function Grupo(desc,num){
+        this.descripcion = desc;
+        this.numeroAlumnos = num;
+    }
+    // Crear una función constructora para Instituto
+    function Instituto(codigo,nombre,grupos){
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.grupos = grupos;
+    }
+
+    // Añadimos los métodos con prototype
+    // Método que devuelve el nombre del instituto
+    Instituto.prototype.getCodigo = function(){
+            return this.codigo;
+    };
+
+    // Método que devuelve el total de alumnos del instituto
+    Instituto.prototype.totalAlumnos = function(){
+            let total = 0;
+            for (let i in this.grupos){
+                total += this.grupos[i].numeroAlumnos;
+            }
+            return total;
+    };
+
+    // Método que añade un nuevo grupo al instituto
+    Instituto.prototype.nuevoGrupo = function(nombre,num){
+            this.grupos.push(new Grupo(nombre,num));
+    };
+
+    // Ejemplo de creación de un objeto del "tipo" Instituto
+    let miInstituto = new Instituto(
+        "11007922",
+        "IES Francisco Romero Vargas",
+        [
+            new Grupo("DAW2",14),
+            new Grupo("ASIR1",32),
+            new Grupo("ASIR2",22)
+    ]);
+    
+    console.log(miInstituto);
+    console.log(miInstituto.getCodigo());
+    console.log(miInstituto.totalAlumnos());
+    miInstituto.nuevoGrupo("DAW1",22);
+    console.log(miInstituto);
+</script>
+</head>
+<body>
+    
+</body>
+</html>

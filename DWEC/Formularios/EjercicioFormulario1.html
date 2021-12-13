@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista 3 Ejercicio 1</title>
+    <script>
+        var numero1, numero2;
+        window.onload = function(){ // Para poder referenciar a los spans
+            // Calculo al azar el primer número entre 0 y 9
+            numero1 = Math.floor(Math.random() * 10);
+            document.getElementById("numero1").innerHTML = numero1;
+            // Calculo al azar el segundo número entre 0 y 9
+            numero2 = Math.floor(Math.random() * 10);
+            document.getElementById("numero2").innerHTML = numero2;
+        }
+
+        // Función que valida el formulario // Devuelve true => se envía // Devuelve false => No se envía 
+        function Ok(f){
+            // Validación del nombre: (no puede estar vacío)
+            let erNombre = /\S/;
+            if (!erNombre.test(f.nombre.value)){
+                document.getElementById("errorNombre").style.display = 'inline';
+                f.nombre.focus();
+                f.nombre.select();
+                return false;
+            }else{
+                document.getElementById("errorNombre").style.display = 'none';
+            }
+
+            //Validación del email (debe ser correcto)
+            let erEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            if (!erEmail.test(f.email.value)){
+                document.getElementById("errorEmail").style.display = 'inline';
+                f.email.focus();
+                f.email.select();
+                return false;
+            }else{
+                document.getElementById("errorEmail").style.display = 'none';
+            }
+
+            //Validación de contraseña (mínimo 8 caracteres y al menos un dígito)
+            let erContrasenia = /(?=.*\d)\w{8,}/;
+            if (!erContrasenia.test(f.pass.value)){
+                document.getElementById("errorPass").style.display = 'inline';
+                f.pass.focus();
+                f.pass.select();
+                return false;
+            }else{
+                document.getElementById("errorPass").style.display = 'none';
+            }
+
+            // Validación de repetición de contraseña
+            if (f.pass.value !== f.pass2.value){
+                document.getElementById("errorPass2").style.display = 'inline';
+                f.pass2.focus();
+                f.pass2.select();
+                return false;
+            }else{
+                document.getElementById("errorPass2").style.display = 'none';
+            }
+
+            //Validación de la suma (para evitar bots)
+            if (Number(f.suma.value) != Number(numero1) + Number(numero2)){
+                document.getElementById("errorSuma").style.display = 'inline';
+                f.suma.focus();
+                f.suma.select();
+                return false;
+            }else{
+                document.getElementById("errorSuma").style.display = 'none';
+            }
+
+            // Todo OK, se envía el formulario
+            return true;
+        }
+
+        // Control de disponibilidad del botón submit (depende del checkbox "Acepto condiciones")
+        function ControlAceptoCondiciones(checkboxAcepto){
+            document.getElementById("submit").disabled = !checkboxAcepto.checked;
+        }
+    </script>
+</head>
+<body>
+    <h1>Formulario de recogida de datos</h1>
+    <form action="https://educacionadistancia.juntadeandalucia.es/centros/cadiz/pluginfile.php/1219055/mod_resource/content/1/procesa_formulario1.php" method="POST" onsubmit="return Ok(this)">
+        Nombre: <input type="text" name="nombre">
+        <span id="errorNombre" style="display:none;color:red">El nombre no puede estar vacío</span><br>
+        Email: <input type="text" name="email">
+        <span id="errorEmail" style="display:none;color:red">El email debe ser válido</span><br>
+        Contraseña: <input type="password" name="pass">
+        <span id="errorPass" style="display:none;color:red">La contraseña debe tener mínimo 8 caracteres y al menos un dígito</span><br> 
+        Repita la contraseña <input type="password" name="pass2">
+        <span id="errorPass2" style="display:none;color:red">Las contraseñas no coinciden</span><br>
+        Resuelva la suma siguiente: <span id="numero1"></span> + <span id="numero2"></span><input type="number" id="suma">
+        <span id="errorSuma" style="display:none;color:red">La suma no es correcta</span><br>
+        Acepto las condiciones <input type="checkbox" onclick="ControlAceptoCondiciones(this)"><br>
+        <input type="submit" value="Crear cuenta" id="submit" disabled>
+    </form>
+</body>
+</html>

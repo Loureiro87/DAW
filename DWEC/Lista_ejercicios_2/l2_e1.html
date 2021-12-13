@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista 2 Ejercicio 1</title>
+    <!-- Objeto Date.- Presentar en todo momento cuánto tiempo falta para llegar al momento de comernos las uvas
+en fin de año expresado en milisegundos. Buscar el método adecuado. Investigar, también, el método
+setInterval() del objeto window.
+-->
+<script>
+    // Para estar seguros de que la página se ha cargado
+    window.onload = function(){
+        //PresentaTiempoRestante();
+        setInterval(PresentaTiempoRestante,1);
+    }
+
+    function PresentaTiempoRestante(){
+        // Obntengo el timestamp actual
+        var ahora = new Date();
+        // Obtengo el año en el que estamos
+        var anioActual = ahora.getFullYear();
+        // Obtenemnos la fecha justa de finalización del año
+        var finDeAnio = new Date(anioActual,11,31,23,59,59);
+        // Presento la resta entre las dos fechas expresadas en milisegundos
+        document.getElementById("salida").innerHTML = finDeAnio.getTime() - ahora.getTime();
+    }
+
+</script>
+</head>
+<body>
+    <p>Faltan <span id="salida"></span> milisegundos para fin de año</p>
+</body>
+</html>

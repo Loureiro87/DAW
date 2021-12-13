@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Ejercicio 11 - Estados de la petición AJAX</title>
+    <style type="text/css">
+      body { font: 13px Arial, Helvetica, sans-serif; }
+      h2 { margin-bottom: 0; font-size: 1.2em; }
+      #recurso, #enviar { padding: .3em; font-size: 1.2em; }
+      #principal { float: left; width: 70%; }
+      #secundario { float: right; width: 25%; }
+      #contenidos, #estados, #cabeceras, #codigo {
+        border: 2px solid #CCC;
+        background: #FAFAFA;
+        padding: 1em;
+        white-space: pre;
+      }
+      #contenidos {
+        min-height: 400px;
+        max-height: 600px;
+        overflow: scroll;
+      }
+      #estados { min-height: 200px; }
+      #cabeceras { min-height: 200px; }
+      #codigo { min-height: 100px; font-size: 1.5em; }
+    </style>
+    <script type="text/javascript">
+    // Transforma caracteres especiales
+    String.prototype.transformaCaracteresEspeciales = function() {
+    return unescape(escape(this).
+                      replace(/%0A/g, '<br/>').
+                      replace(/%3C/g, '&lt;').
+                      replace(/%3E/g, '&gt;'));
+    }
+
+    var estadosPosibles = ['No inicializado', 'Cargando', 'Cargado', 'Interactivo', 'Completado'];
+      
+      window.onload = function(){
+        // Apartado 1
+          document.getElementById("recurso").value = window.location.href;
+          document.getElementById("enviar").onclick = MostrarContenidos;
+      }
+      
+      function MostrarContenidos(){
+        // Limpiamos las capas
+        document.getElementById("estados").innerHTML = "";
+        document.getElementById("contenidos").innerHTML = "";
+        document.getElementById("cabeceras").innerHTML = "";
+
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+          // Apartado 3
+          document.getElementById("estados").innerHTML += this.readyState + " " + estadosPosibles[this.readyState]+ "<br>";
+          if (xhr.readyState == 4){
+            if (xhr.status == 200){
+              // Apartado 2
+              document.getElementById("contenidos").innerHTML = xhr.responseText.transformaCaracteresEspeciales();
+              // Apartado 4
+              document.getElementById("cabeceras").innerHTML = this.getAllResponseHeaders();
+            }
+            // Apartado 5
+            document.getElementById("codigo").innerHTML = this.status + " " + this.statusText;
+          }
+        }
+        xhr.open("GET",document.getElementById("recurso").value);
+        xhr.setRequestHeader('Cache-Control', 'no-cache');
+        xhr.send();
+      }
+
+
+
+
+    </script>
+  </head>
+  <body>
+    URL: <input type="text" id="recurso" size="70" />
+    <input type="button" id="enviar" value="Mostrar contenidos" />
+
+    <div id="principal">
+      <h2>Contenidos del archivo:</h2>
+      <div id="contenidos"></div>
+      
+      <h2>Cabeceras HTTP de la respuesta del servidor:</h2>
+      <div id="cabeceras"></div>
+    </div>
+    
+    <div id="secundario">
+      <h2>Estados de la petición:</h2>
+      <div id="estados"></div>
+      
+      <h2>Código de estado:</h2>
+      <div id="codigo"></div>
+    </div>
+  </body>
+</html>

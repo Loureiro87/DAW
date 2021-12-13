@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animales</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+
+        }
+    </style>
+    <script>
+        //Cuando se carge la pagina se ejecutara la funcion que recibe el JSON
+        var animales = [];// Defino una variable global a todas las funciones
+        window.onload = CargarAjax;
+
+        function CargarAjax() {
+            const xhr = new XMLHttpRequest;
+
+            xhr.onload = function () {
+                animales = JSON.parse(this.responseText);
+                CargaTabla();
+
+            }
+
+            //xhr.open('GET', 'animales.json');
+            xhr.open('GET', 'http://localhost:3000/animales');
+            xhr.setRequestHeader('Cache-Control', 'no-cache');
+            xhr.send();
+        }
+        function Grabar() {
+            let nombre = document.getElementById("nombre").value;
+            let especie = document.getElementById("especie").value;
+            let raza = document.getElementById("raza").value;
+
+            var xhrNuevo = new XMLHttpRequest();
+            xhrNuevo.onload = function () {
+                console.log("registro grabado");
+                CargarAjax();
+                document.getElementById("nombre").value = "";
+                document.getElementById("especie").value = "";
+                document.getElementById("raza").value = "";
+
+            }
+            xhrNuevo.open('POST', 'http://localhost:3000/animales');
+            xhrNuevo.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            xhrNuevo.send("nombre=" + nombre + "&especie=" + especie + "&raza=" + raza);
+        }
+        function Eliminar(id) {
+
+
+            var xhrEliminar = new XMLHttpRequest();
+
+            xhrEliminar.onload = function () {
+                console.log("Registro Eliminado");
+                CargarAjax();
+            }
+
+            xhrEliminar.open('DELETE', 'http://localhost:3000/animales/' + id);
+            xhrEliminar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            xhrEliminar.send();
+        }
+        function Modificiar(id) {
+            let nombre = document.getElementById("nombre_" + id).value;
+            let especie = document.getElementById("especie_" + id).value;
+            let raza = document.getElementById("raza_" + id).value;
+
+            var xhrNuevo = new XMLHttpRequest();
+            xhrNuevo.onload = function () {
+                console.log("registro grabado");
+                CargarAjax();
+            }
+            xhrNuevo.open('PATCH', 'http://localhost:3000/animales/' + id);
+            xhrNuevo.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            xhrNuevo.send("nombre=" + nombre + "&especie=" + especie + "&raza=" + raza);
+        }
+
+
+        function CargaTabla() {
+            let tabla = "<table>";
+            tabla += "<tr><th>nombre</th><th>Especie</th><th>Raza</th><th></th><th></th></tr>";
+
+            animales.forEach(function (animal, indice) {
+                tabla += `<tr>
+                            <td> <input type="text" id="nombre_${animal.id}" value="${animal.nombre}" readOnly onclick="this.readOnly = false"></td>
+                            <td> <input type="text" id="especie_${animal.id}" value="${animal.especie}"readOnly onclick="this.readOnly = false"></td>
+                            <td> <input type="text" id="raza_${animal.id}" value="${animal.raza}" readOnly onclick="this.readOnly = false"></td>
+                            <td><button onclick="Eliminar(${animal.id})">Eliminar</button></td>
+                            <td><button onclick="Modificiar(${animal.id},)">Modificiar</button></td>`;
+            });
+
+            /*
+            for (let i = 0; i < animales.length; i++) {
+                tabla += `<tr><td> ${animales[i].nombre}</td><td>${animales[i].especie}</td><td>${animales[i].raza}`;
+            }
+            */
+
+            tabla += "</table>";
+
+            document.getElementById("capa").innerHTML = tabla;
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Animales</h1>
+    <div id="capa"></div>
+    <h2>Nuevo Animal</h2>
+    Nombre <input type="text" id="nombre">
+    Especie <input type="text" id="especie">
+    Raza <input type="text" id="raza">
+    <button onclick="Grabar()">Añadir</button>
+
+</body>
+
+</html>

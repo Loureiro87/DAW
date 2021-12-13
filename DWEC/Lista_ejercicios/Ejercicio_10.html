@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio 10 - Lista 1</title>
+    <!-- 10. Escribe un script que contenga un párrafo y cinco botones. Cada uno de los
+          botones debe tener como etiqueta el nombre de un color y al pulsarlo pondrá el
+          color del párrafo del mismo color que indica.-->
+    
+    <script>
+        function Colorear(colorElejido, boton){
+
+            document.getElementById("parrafo").style.color = colorElejido;
+        }
+    </script>
+  </head>
+  <body>
+    <h1>Botones de colores!!</h1>
+    <p ><h2 id="parrafo">Parrafo</h2></p>
+    <br>
+    <button onclick="Colorear('red',this)">Rojo</button>
+    <button onclick="Colorear('green',this)">Verde</button>
+    <button onclick="Colorear('yellow',this)">Amarillo</button>
+    <button onclick="Colorear('blue',this)">Azul</button> 
+    <button onclick="Colorear('black',this)">Negro</button>
+
+  </body>
+</html>

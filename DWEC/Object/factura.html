@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Factura</title>
+  </head>
+  <!--Definir la estructura de un objeto que almacena una factura. 
+        Las facturas están formadas por la información de la propia empresa (nombre de la empresa, dirección, teléfono, NIF),
+        la información del cliente (similar a la de la empresa), una lista de elementos (cada uno de los cuales dispone de descripción,
+        precio, cantidad) y otra información básica de la factura (importe total, tipo de iva, forma de pago).
+
+        Una vez definidas las propiedades del objeto, añadir un método que calcule el importe total de la factura y 
+        actualice el valor de la propiedad correspondiente. Por último, añadir otro método que muestre por pantalla el 
+        importe total de la factura.
+    -->
+  <script>
+    function Cliente(nomCliente, direcciónClient, telefonoCliente, nifCliente) {
+      this.nomCliente = nomCliente;
+      this.direcciónClient = direcciónClient;
+      this.telefonoCliente = telefonoCliente;
+      this.nifCliente = nifCliente;
+    }
+    function Elementos(descripción, precio, cantidad) {
+      this.descripción = descripción;
+      this.precio = precio;
+      this.cantidad = cantidad;
+    }
+    function InfoFactura(baseImponible, tipoIva, total, formaPago) {
+      this.baseImponible = baseImponible;
+      this.tipoIva = tipoIva;
+      this.total = total;
+      this.formaPago = formaPago;
+    }
+    function Factura(
+      nomEmpresa,
+      dirección,
+      teléfono,
+      nif,
+      clientes,
+      elementos,
+      InfoFactura
+    ) {
+      this.nomEmpresa = nomEmpresa;
+      this.dirección = dirección;
+      this.teléfono = teléfono;
+      this.nif = nif;
+      this.clientes = clientes;
+      this.elementos = elementos;
+      this.InfoFactura = InfoFactura;
+
+      /* // Importe total de la factura
+      factura_sevenStudio.calculaTotal = function () {
+        for (let i in this.Elementos) {
+        }
+      };
+      */
+    }
+    //Creacion de Empresa
+    var factura_sevenStudio = new Factura(
+      "SevenStudio",
+      "madrid numero 8",
+      "666999666",
+      "44969480a",
+      [
+        new Cliente("Pepa", "999666999", "65453215h"),
+        new Cliente("Paco", "444555666", "45230985y"),
+      ],
+      //Creacion de Elementos
+      [
+        new Elementos("Carteleria.", 400, 3),
+        new Elementos("Producto Web.", 200, 1),
+        new Elementos("Diseño de logotipo.", 100, 4),
+      ],
+      //Creacion de InfoFactura
+      new InfoFactura(0, 16, 0, "transferencia")
+    );
+
+    console.log(factura_sevenStudio);
+  </script>
+
+  <body></body>
+</html>

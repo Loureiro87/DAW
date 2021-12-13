@@ -1,0 +1,51 @@
+{
+    "nombre": "IES Francisco Romero Varga",
+    "codigo": "11007922",
+    "grupos": [
+        {
+            "nombre": "ASIR1",
+            "alumnos": 30,
+            "profesores": [
+                "Juana",
+                "Ango",
+                "Jose Antonio",
+                "Sonia",
+                "Juan",
+                "Paco"
+            ]
+        },
+        {
+            "nombre": "ASIR2",
+            "alumnos": 19,
+            "profesores": [
+                "Juana",
+                "María  José",
+                "Luis",
+                "Angélica",
+                "Sonia"
+            ]
+        },
+        {
+            "nombre": "DAW1",
+            "alumnos": 20,
+            "profesores": [
+                "Angélica",
+                "Ango",
+                "Luis",
+                "Sonia",
+                "Fernando Pérez"
+            ]
+        },
+        {
+            "nombre": "DAW2",
+            "alumnos": 14,
+            "profesores": [
+                "Juana",
+                "Paco",
+                "Sonia",
+                "Fernando Pérez",
+                "Angélica"
+            ]
+        }
+    ]
+}

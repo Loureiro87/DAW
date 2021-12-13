@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista 2 Ejercicio 5</title>
+    <!-- Definir una función denominada F1 que muestre información sobre una cadena de texto que se le pasa como
+argumento. A partir de la cadena que se le pasa, la función determina si esa cadena está formada sólo por
+mayúsculas, sólo por minúsculas o por una mezcla de ambas. Devolverá “mayúscula”, “minúscula” o “ambas”.
+Recordad los métodos toUpperCase() y toLowerCase().
+-->
+<script>
+    function F1(cadena){ // Recibe como argumento una cadena de texto
+        if (cadena == cadena.toUpperCase()){
+            return "mayúscula";
+        }else{
+            if (cadena == cadena.toLowerCase()){
+                return "minúscula";
+            }else{
+                return "ambas";
+            }
+        }
+    }
+    //var texto = "ámbito";
+    //console.log(F1(texto));
+</script>
+</head>
+<body>
+    
+</body>
+</html>

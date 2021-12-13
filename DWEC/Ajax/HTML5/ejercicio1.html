@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Repasando HTML5</title>
+
+<script>
+var total = 0;
+var aciertos = 0;
+var etiquetas = []; // Array con las etiquetas
+var elegida; // Nuevo índice de etiqueta al azar
+var cuales = []; // Para almacenar los índices de las que ya se han mostrado
+
+// Cargo las etiquetas desde el archivo JSON
+window.onload = function(){
+	var x = new XMLHttpRequest();
+	x.onreadystatechange = function(){
+		if (x.readyState == 4 && x.status == 200){
+			etiquetas = JSON.parse(x.responseText);
+			// Ordeno alfabéticamente
+			etiquetas.sort(function(a,b){
+				if (a.etiqueta<b.etiqueta) return -1; 
+			    if (a.etiqueta>b.etiqueta) return 1;
+			});
+			// Presento el menú
+			PresentaMenu();
+			// Elijo una al azar
+			elegida = NuevaEtiqueta();
+		}
+	}
+	x.open("GET","etiquetas_html5.json",true);
+	x.send();		
+}
+	
+function PresentaMenu(){
+	for (var i=0;i<etiquetas.length;i++){
+		document.getElementById("etiquetas").innerHTML +="<input type='button' id='"+i+"' onclick='PulsaBoton(this)' value='"+etiquetas[i].etiqueta+"' size='10' />";
+	}
+}
+	
+function NuevaEtiqueta(){
+	var azar;
+	do{
+		azar = Math.floor(Math.random()*etiquetas.length);
+	} while (cuales.indexOf(azar) != -1);
+	cuales.push(azar);
+	document.getElementById("definicion").innerHTML = etiquetas[azar].definicion;
+	return etiquetas[azar].etiqueta;
+}
+
+// Controla la pulsación del botón
+function PulsaBoton(botoncillo){
+	total++;
+	if (elegida == botoncillo.value){
+		aciertos++;
+		botoncillo.style.color = 'green';
+		botoncillo.disabled = true;
+	}else{
+		botoncillo.style.color = 'red';	
+	}
+	document.getElementById("porcentaje").innerHTML = aciertos+" "+(aciertos*100/total).toFixed(2)+"%";
+	// Vuelvo a elegir al azar otra etiqueta, salvo si ya se han mostrado todas
+	if (cuales.length == etiquetas.length){
+		alert("Ya no hay más etiquetas que mostrar. La página se recargará !!");
+		window.location = window.location.href;	
+	}else{
+		elegida = NuevaEtiqueta();
+	}
+}
+</script>
+</head>
+
+<body>
+<h1>Repasando HTML5</h1>
+<br/>
+<div id="etiquetas"></div>
+<div>Aciertos: <span id="porcentaje"></span></div>
+<h3 id="definicion"></h3>
+</body>
+</html>

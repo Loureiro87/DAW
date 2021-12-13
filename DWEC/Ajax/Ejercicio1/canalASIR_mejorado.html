@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 AJAX - JSON </title>
+
+    <script>
+        //Cuando se cargue la pagina hacemos la peticion AJAx
+        window.onload = function () {
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.onload = function () {
+
+                var canal = JSON.parse(xhr.responseText);
+                //Cargamos los diferentes generos en el menu de seleccion
+                CargarGeneros(canal);
+
+                Proceso(canal);
+            }
+
+            xhr.open("GET", "servidor/canalASIR.json");
+            xhr.setRequestHeader('Cache-Control', 'no-cache');
+            xhr.send();
+
+        }
+
+        function CargarGeneros(canal) {
+            let generos = [];
+
+            for (i = 0; i < canal.programas.length; i++) {
+                for (j = 0; j < canal.programas[i].generos.length; j++) {
+                    if (generos.indexOf(canal.programas[i].generos[j]) == -1) {
+                        generos.push(canal.programas[i].generos[j]);
+                    }
+                }
+            }
+            console.log(generos);
+            generos.sort();
+            generos.forEach(function (genero) {
+                document.getElementById("seleccion").innerHTML +=
+                    `<option value="${genero}">${genero.toUpperCase()}</option>`;
+            });
+        }
+        //Funcion que procesa los datos recibidos 
+        function Proceso(canal) {
+            var fecha = new Date(canal.fecha);
+            let diaSemana = ["Domenica", "Lunedí", "Martedí", "Mercoledí", "giovedí", "Venerdí", "Sabato"];
+            document.getElementById("encabezado").innerHTML =
+                `Programación del ${diaSemana[fecha.getDay()]}  ${fecha.getDate()}/${fecha.getMonth()}/${fecha.getFullYear()}`;
+
+            document.getElementById("numPrograma").innerHTML = "Numero de programas " + canal.programas.length;
+
+
+            MuestraTabla(canal, -1);  // Parq que los muestre todos inicialmente le pasamos el valor -1 
+
+        }
+
+        function MuestraTabla(canal, genero) {
+
+            let texto = "<tr><th>Hora</th><th>Programas</th></tr>";
+
+            canal.programas.forEach(function (programa) {
+                if (genero == -1) {
+
+                    texto += `<tr onmouseover="this.style='color:blue'" onmouseout="this.style='color:black'">
+                        <td>${programa.hora} </td>
+                        <td onclick="alert('${programa.generos.join('/')}')">${programa.nombre}</td>
+                        </tr>`;
+                }
+
+            });
+            document.getElementById("tabla").innerHTML = texto;
+        }
+    </script>
+</head>
+
+<body>
+    <h1 id="encabezado"></h1>
+    Elegir genero: <select id="seleccion" onchange="">
+        <option value="-1">-- Todos --</option>
+    </select>
+
+    <p id="numPrograma"></p>
+    <table id="tabla"></table>
+    <style>
+        table,
+        td,
+        tr {
+            border: 1px solid black;
+        }
+    </style>
+</body>
+
+</html>

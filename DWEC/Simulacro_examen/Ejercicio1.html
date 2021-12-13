@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="funcionesExamen.js" type="text/javascript"></script>
+    <title>Ejercicio 1 - Simulacro Examen</title>
+  </head>
+  <body>
+    <!--Diseñar una página web denominada ejercicio1.html que muestre en un mensaje de alerta los 5 primeros 
+        números enteros positivos denominados “curiosos”. Se considera un número “curioso”aquel que coincide 
+        con la suma de los cubos de sus dígitos. El código, obligatoriamente, debe contar con una función booleana 
+        (esCurioso()) que reciba como parámetro un número y devuelva verdadero o falso según si cumple o no el requisito.
+         Son ejemplos de números curiosos: 1, 153, ...console.log( "en el if: numerocurioso " + numCurioso + " contador: " + contador + " numeroComprbar" + numeroComprobar ); -->
+
+    <script>
+      var contador = 0;
+      var numeroComprobar = 1;
+      var numCurioso = " ";
+      do {
+        if (esCurioso(numeroComprobar) == true) {
+          numCurioso += numeroComprobar + " ";
+          contador++;
+        }
+        numeroComprobar++;
+        //contador++;
+      } while (contador < 5);
+      console.log(contador + "  " + numCurioso + " +" + numeroComprobar);
+      alert(numCurioso);
+    </script>
+  </body>
+</html>
